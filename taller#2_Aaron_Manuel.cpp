@@ -33,15 +33,6 @@ void agregarArista(int u, int v, int peso) {
     grafo[v] = new Nodo{u, peso, grafo[v]};
 }
 
-void cargarGrafo() {
-    cin >> vertices;
-    inicializargrafo();
-
-    int u, v, peso;
-    while (cin >> u >> v >> peso) {
-        agregarArista(u, v, peso);
-    }
-}
 
 void cargarArchivo(const string& nombreArchivo) {
     ifstream archivo(nombreArchivo);
@@ -65,6 +56,7 @@ void prim(int origen) {
     int* visitado = new int[vertices];
     int* costo = new int[vertices];
     int* padre = new int[vertices];
+    int cont=0;
 
     for (int i = 0; i < vertices; i++) {
         visitado[i] = 0;
@@ -100,8 +92,10 @@ void prim(int origen) {
     for (int i = 0; i < vertices; i++) {
         if (padre[i] != -1) {
             cout << padre[i] << " - " << i << " (peso: " << costo[i] << ")" << endl;
+            cont += costo[i];
         }
     }
+    cout << "Costo total del arbol minimo: " << cont << endl;
 
     delete[] visitado;
     delete[] costo;
